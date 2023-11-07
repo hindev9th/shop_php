@@ -10,7 +10,7 @@ class Config
     private string $databaseName = 'shop';
     private string $username = 'root';
     private string $password = '';
-    private string $baseUrl = 'shop-bavaan.test';
+    private string $baseUrl = 'http://shop-bavaan.test/';
     private PDO $conn;
     
     private static ?Config $config = null;

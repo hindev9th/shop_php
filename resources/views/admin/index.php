@@ -1,4 +1,5 @@
 <?php $title = 'Admin | Home' ?>
+<?php $selected = 'dashboard' ?>
 <?php require __DIR__ . '/layouts/head.php' ?>
     <!--Content-->
     <div class="container-xxl flex-grow-1 container-p-y">

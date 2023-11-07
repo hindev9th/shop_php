@@ -6,9 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin | Login</title>
-    <link rel="icon" type="image/x-icon" href="resources/images/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="<?php asset('images/favicon/favicon.ico'); ?>" />
     <?php require 'resources/views/admin/layouts/style.php' ?>
-    <link rel="stylesheet" href="resources/css/pages/page-auth.css">
+    <link rel="stylesheet" href="<?php asset('css/admin/pages/page-auth.css'); ?>">
 </head>
 <body>
 <!-- Content -->
@@ -126,6 +126,6 @@
 </div>
 
 <!-- / Content -->
-<?php require 'resources/views/layouts/script.php' ?>
+<?php require 'resources/views/admin/layouts/script.php' ?>
 </body>
 </html>

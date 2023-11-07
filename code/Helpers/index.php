@@ -65,11 +65,23 @@ if (!function_exists('routeCheckAuth')) {
  * check login admin and redirect
  * @return void
  */
+if (!function_exists('routeCheckLoginAuthAdmin')) {
+    function routeCheckLoginAuthAdmin()
+    {
+        if (auth() && auth()->getPermission() === 1) {
+            redirect('/admin');
+        }
+    }
+}
+/**
+ * check login admin and redirect
+ * @return void
+ */
 if (!function_exists('routeCheckAuthAdmin')) {
     function routeCheckAuthAdmin()
     {
-        if (auth()->getPermission() === 1) {
-            redirect('/admin');
+        if (auth() && auth()->getPermission() === 0) {
+            redirect('/admin/login');
         }
     }
 }
@@ -97,3 +109,15 @@ if (!function_exists('logout')) {
         return true;
     }
 }
+
+/**
+ * remove session has key name is user
+ * @return true
+ */
+if (!function_exists('asset')) {
+    function asset(string $path)
+    {
+        echo getBaseUrl().'resources/'.$path;
+    }
+}
+

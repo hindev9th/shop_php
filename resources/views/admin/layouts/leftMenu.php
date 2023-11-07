@@ -2,7 +2,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="/" class="app-brand-link">
+        <a href="/admin" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                     width="25"
@@ -70,8 +70,8 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
-            <a href="/" class="menu-link">
+        <li class="menu-item <?= $selected == 'dashboard' ? 'active' : '' ?>">
+            <a href="/admin" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -80,18 +80,18 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
         </li>
-        <li class="menu-item">
-            <a href="/" class="menu-link">
+        <li class="menu-item <?= $selected == 'category' ? 'active' : '' ?>">
+            <a href="/admin/category" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="Analytics">Category</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="/" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Analytics">Brand</div>
-            </a>
-        </li>
+<!--        <li class="menu-item">-->
+<!--            <a href="/admin/brand" class="menu-link">-->
+<!--                <i class='menu-icon  bx bx-purchase-tag-alt'></i>-->
+<!--                <div data-i18n="Analytics">Brand</div>-->
+<!--            </a>-->
+<!--        </li>-->
 
     </ul>
 </aside>

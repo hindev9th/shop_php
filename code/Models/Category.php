@@ -20,6 +20,14 @@ class Category
         return $results;
     }
 
+    public function all()
+    {
+        $conn = Config::gI()->connect();
+        $query = $conn->prepare("SELECT * FROM categories");
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_CLASS, "code\Entities\Category");
+        return $results;
+    }
     public function store(string $name)
     {
         $conn = Config::gI()->connect();

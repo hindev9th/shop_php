@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 namespace code\Controllers;
+require 'code/Models/Product.php';
+use code\Models\Category;
+use code\Models\Product;
 
 class HomeController
 {
@@ -16,8 +19,13 @@ class HomeController
         }
         return self::$homeController;
     }
-    public function index()
+    public function index(int $page)
     {
+        $productModel = new Product();
+        $products = $productModel->index($page);
+        $counts = $productModel->count();
+        $current_page = $page;
+
         return require 'resources/views/frontend/index.php';
     }
 }

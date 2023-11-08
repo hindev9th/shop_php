@@ -1,6 +1,7 @@
 <?php
 require 'config/Config.php';
 require_once 'code/Entities/User.php';
+require_once 'code/Models/Category.php';
 /**
  * get base url in config
  * @return string
@@ -22,6 +23,19 @@ if (!function_exists('redirect')) {
     {
         echo "<script type='text/javascript'>
            window.location = '{$to}';
+            </script>";
+    }
+}
+/**
+ * redirect before page
+ * @param string $to
+ * @return void
+ */
+if (!function_exists('redirectBack')) {
+    function redirectBack()
+    {
+        echo "<script type='text/javascript'>
+           history.go(-1);
             </script>";
     }
 }
@@ -93,7 +107,7 @@ if (!function_exists('routeCheckAuthOut')) {
     function routeCheckAuthOut()
     {
         if (!auth()) {
-            redirect('/admin/login');
+            redirect('/login');
         }
     }
 }
@@ -111,13 +125,106 @@ if (!function_exists('logout')) {
 }
 
 /**
- * remove session has key name is user
- * @return true
+ * add files assets
  */
 if (!function_exists('asset')) {
     function asset(string $path)
     {
-        echo getBaseUrl().'resources/'.$path;
+        echo getBaseUrl() . 'resources/' . $path;
     }
 }
 
+/**
+ * get array object categories
+ * @return array|false
+ */
+if (!function_exists('getCategories')) {
+    function getCategories()
+    {
+        $categoryModel = new \code\Models\Category();
+        return $categoryModel->all();
+    }
+}
+
+/**
+ * @param $product
+ * @return mixed
+ */
+if (!function_exists('addToCart')) {
+    function addToCart($product,$data)
+    {
+        $id = $data['id'];
+        if (isset($_SESSION['cart'][$id])) {
+            $_SESSION['cart'][$id]['qty'] += $data['qty'];
+            return $_SESSION['cart'][$id];
+        }
+
+        $_SESSION['cart'][$id] = [
+            'name' => $product->getName(),
+            'type_id' => $product->getTypeId(),
+            'type' => $product->getType(),
+            'color_id' => $product->getColorId(),
+            'color' => $product->getColorName(),
+            'price' => $product->getPrice(),
+            'priceDiscount' => $product->getPriceDiscount(),
+            'qty' => $data['qty'],
+        ];
+        return $_SESSION['cart'][$id];
+    }
+}
+
+/**
+ * get total price cart
+ * @return mixed
+ */
+if (!function_exists('getTotalCart')) {
+    function getTotalCart()
+    {
+        $total = 0;
+        foreach ($_SESSION['cart'] as $cart) {
+            $sum = $cart['qty'] * ($cart['priceDiscount'] > 0) ? $cart['priceDiscount'] : $cart['price'];
+            $total = $total + $sum;
+        }
+        return $total;
+    }
+}
+/**
+ * get count cart
+ *
+ * @return int|mixed
+ */
+if (!function_exists('getCountCart')) {
+    function getCountCart()
+    {
+        $count = 0;
+        if (is_array($_SESSION['cart'] ?? null)){
+            foreach ($_SESSION['cart'] as $cart) {
+                $count += $cart['qty'];
+            }
+        }
+        return $count;
+    }
+}
+
+/**
+ * get data cart
+ * @return mixed
+ */
+if (!function_exists('getCart')) {
+    function getCart()
+    {
+        return $_SESSION['cart'];
+    }
+}
+
+/**
+ * get data cart
+ * @return mixed
+ */
+if (!function_exists('getCart')) {
+    function getCart($data)
+    {
+        unset($_SESSION['cart'][$data['id']]);
+        redirectBack();
+    }
+}

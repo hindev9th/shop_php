@@ -34,7 +34,7 @@ class Config
         try {
             $this->conn =  new PDO("mysql:host=$this->hostName;myDB=$this->databaseName",$this->username,$this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->conn->query('use shop');
+            $this->conn->query("use {$this->databaseName}");
             return $this->conn;
         }catch (PDOException $e){
             die("Connection failed: " . $e->getMessage());

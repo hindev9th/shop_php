@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 namespace code\Controllers\admin;
-require 'code/Models/Category.php';
 use code\Models\Category;
 
 class CategoryController

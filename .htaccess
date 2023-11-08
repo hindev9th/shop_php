@@ -1,6 +1,6 @@
 RewriteEngine On
 # Allow requests for static files to pass through
-RewriteCond %{REQUEST_URI} \.(css|js|gif|jpg|png|ico|woff2|woff|tff)$ [NC]
+RewriteCond %{REQUEST_URI} \.(css|js|gif|jpg|png|webp|ico|woff2|woff|tff)$ [NC]
 RewriteRule ^(.*)$ - [NC,L]
 
 # Rewrite all other requests to index.php

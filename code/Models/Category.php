@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace code\Models;
-require 'code/Entities/Category.php';
+require_once 'code/Entities/Category.php';
 use config\Config;
 use PDO;
 
@@ -15,7 +15,7 @@ class Category
 
         $query = $conn->prepare("SELECT * FROM categories LIMIT {$start},{$show}");
         $query->execute();
-        $results = $query->fetchAll(PDO::FETCH_CLASS, "code\Entities\Category");
+        $results = $query->fetchAll(PDO::FETCH_CLASS, \code\Entities\Category::class);
 
         return $results;
     }
@@ -25,7 +25,7 @@ class Category
         $conn = Config::gI()->connect();
         $query = $conn->prepare("SELECT * FROM categories");
         $query->execute();
-        $results = $query->fetchAll(PDO::FETCH_CLASS, "code\Entities\Category");
+        $results = $query->fetchAll(PDO::FETCH_CLASS, \code\Entities\Category::class);
         return $results;
     }
     public function store(string $name)
@@ -40,7 +40,7 @@ class Category
         $conn = Config::gI()->connect();
         $query = $conn->prepare("SELECT * FROM categories WHERE id = '$id' LIMIT 1");
         $query->execute();
-        $category = $query->fetchAll(PDO::FETCH_CLASS, "code\Entities\Category");
+        $category = $query->fetchAll(PDO::FETCH_CLASS, \code\Entities\Category::class);
         if ($category[0]){
             return $category[0];
         }

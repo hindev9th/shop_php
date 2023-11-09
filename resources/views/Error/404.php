@@ -20,7 +20,7 @@
         <a href="/" class="btn btn-primary">Back to home</a>
         <div class="mt-3">
             <img
-                src="resources/images/illustrations/page-misc-error-light.png"
+                src="<?php asset('images/illustrations/page-misc-error-light.png'); ?>"
                 alt="page-misc-error-light"
                 width="500"
                 class="img-fluid"

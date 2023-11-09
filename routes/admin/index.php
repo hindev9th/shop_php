@@ -1,3 +1,3 @@
 <?php
-require 'routes/admin/admin.php';
-require 'routes/admin/category.php';
+require_once 'routes/admin/admin.php';
+require_once 'routes/admin/category.php';

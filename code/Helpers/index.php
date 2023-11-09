@@ -1,5 +1,5 @@
 <?php
-require 'config/Config.php';
+require_once 'config/Config.php';
 require_once 'code/Entities/User.php';
 require_once 'code/Models/Category.php';
 /**
@@ -103,6 +103,18 @@ if (!function_exists('routeCheckAuthAdmin')) {
  * check logout and redirect to login page
  * @return void
  */
+if (!function_exists('routeCheckAuthAdminOut')) {
+    function routeCheckAuthAdminOut()
+    {
+        if (!auth()) {
+            redirect('/admin/login');
+        }
+    }
+}
+/**
+ * check logout and redirect to login page
+ * @return void
+ */
 if (!function_exists('routeCheckAuthOut')) {
     function routeCheckAuthOut()
     {
@@ -160,19 +172,46 @@ if (!function_exists('addToCart')) {
         }
 
         $_SESSION['cart'][$id] = [
+            'id' => $product->getId(),
             'name' => $product->getName(),
             'type_id' => $product->getTypeId(),
             'type' => $product->getType(),
             'color_id' => $product->getColorId(),
             'color' => $product->getColorName(),
             'price' => $product->getPrice(),
-            'priceDiscount' => $product->getPriceDiscount(),
+            'price_discount' => $product->getPriceDiscount(),
             'qty' => $data['qty'],
         ];
         return $_SESSION['cart'][$id];
     }
 }
-
+/**
+ * delete a item in cart by key
+ * @param $key
+ */
+if (!function_exists('updateQtyCart')) {
+    function updateQtyCart($key,$qty)
+    {
+        if (isset($_SESSION['cart'][$key])) {
+            $_SESSION['cart'][$key]['qty'] = $qty;
+        }
+        redirectBack();
+    }
+}
+/**
+ * delete a item in cart by key
+ * @param $key
+ */
+if (!function_exists('removeItemCart')) {
+    function removeItemCart($key)
+    {
+        var_dump($key);
+        if (isset($_SESSION['cart'][$key])) {
+            unset($_SESSION['cart'][$key]);
+        }
+        redirectBack();
+    }
+}
 /**
  * get total price cart
  * @return mixed
@@ -182,7 +221,7 @@ if (!function_exists('getTotalCart')) {
     {
         $total = 0;
         foreach ($_SESSION['cart'] as $cart) {
-            $sum = $cart['qty'] * ($cart['priceDiscount'] > 0) ? $cart['priceDiscount'] : $cart['price'];
+            $sum = $cart['qty'] * ($cart['price_discount'] > 0? $cart['price_discount'] : $cart['price']);
             $total = $total + $sum;
         }
         return $total;
@@ -217,14 +256,3 @@ if (!function_exists('getCart')) {
     }
 }
 
-/**
- * get data cart
- * @return mixed
- */
-if (!function_exists('getCart')) {
-    function getCart($data)
-    {
-        unset($_SESSION['cart'][$data['id']]);
-        redirectBack();
-    }
-}

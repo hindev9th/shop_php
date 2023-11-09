@@ -6,7 +6,7 @@ require 'code/Controllers/LoginController.php';
 require 'code/Controllers/admin/BrandController.php';
 switch ($request) {
     case '/admin':
-        routeCheckAuthOut();
+        routeCheckAuthAdminOut();
         routeCheckAuthAdmin();
         $home = new \code\Controllers\admin\HomeController();
         $home->index();
@@ -14,7 +14,7 @@ switch ($request) {
         break;
     case '/admin/login':
         routeCheckLoginAuthAdmin();
-        \code\Controllers\LoginController::gI()->index();
+        \code\Controllers\LoginController::gI()->admin();
         setFound(true);
         break;
     case '/admin/login/in':
@@ -22,12 +22,12 @@ switch ($request) {
         \code\Controllers\LoginController::gI()->login();
         setFound(true);
         break;
-    case '/admin/logout':
+    case '/logout':
         \code\Controllers\LoginController::gI()->logoutAdmin();
         setFound(true);
         break;
     case '/admin/brand':
-        routeCheckAuthOut();
+        routeCheckAuthAdminOut();
         routeCheckAuthAdmin();
         code\Controllers\admin\BrandController::gI()->index();
         setFound(true);

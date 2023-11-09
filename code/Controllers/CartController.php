@@ -18,6 +18,11 @@ class CartController
         }
         return self::$cartController;
     }
+
+    public function index()
+    {
+        return require_once 'resources/views/frontend/cart.php';
+    }
     public function add(int $id,int $type_id,int $color_id,int $qty)
     {
         $data = [
@@ -29,5 +34,17 @@ class CartController
         $product = $productModel->getById($id,$type_id,$color_id);
         addToCart($product,$data);
         redirectBack();
+    }
+
+    public function update(int $id,int $type_id,int $color_id,int $qty)
+    {
+        $key = $id.$type_id.$color_id;
+        updateQtyCart($key,$qty);
+    }
+
+    public function delete(int $id,int $type_id,int $color_id)
+    {
+        $key = $id.$type_id.$color_id;
+        removeItemCart($key);
     }
 }

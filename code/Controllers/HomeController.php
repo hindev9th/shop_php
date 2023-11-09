@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace code\Controllers;
-require 'code/Models/Product.php';
+require_once 'code/Models/Product.php';
 use code\Models\Category;
 use code\Models\Product;
 
@@ -26,6 +26,6 @@ class HomeController
         $counts = $productModel->count();
         $current_page = $page;
 
-        return require 'resources/views/frontend/index.php';
+        return require_once 'resources/views/frontend/index.php';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 namespace code\Controllers\admin;
-require 'code/Models/Brand.php';
+require_once 'code/Models/Brand.php';
 
 use code\Models\Brand;
 
@@ -23,6 +23,6 @@ class BrandController
     {
         $brand = new Brand();
         $brands = $brand->all();
-        return require "resources/views/admin/brands/index.php";
+        return require_once "resources/views/admin/brands/index.php";
     }
 }

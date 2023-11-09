@@ -24,12 +24,12 @@ class CategoryController
         $categories = $category->index($page);
         $counts = $category->count();
         $currentPage = $page;
-        return require 'resources/views/admin/category/index.php';
+        return require_once 'resources/views/admin/category/index.php';
     }
 
     public function create()
     {
-        return require 'resources/views/admin/category/create.php';
+        return require_once 'resources/views/admin/category/create.php';
     }
 
     public function store()
@@ -38,7 +38,7 @@ class CategoryController
         $categoryModel = new Category();
         $category = $categoryModel->store($name);
         if (!$category){
-            redirect('admin/category/create');
+            redirectBack();
         }
         redirect('/admin/category');
     }
@@ -59,7 +59,7 @@ class CategoryController
         $categoryModel = new Category();
         $category = $categoryModel->update($id,$name);
         if (!$category){
-            redirect("/admin/category/edit/$id");
+            redirectBack();
         }
         redirect('/admin/category');
 
@@ -70,6 +70,6 @@ class CategoryController
         $id = $_POST['id'] ?? redirect('/admin/category');
         $categoryModel = new Category();
         $categoryModel->destroy((int)$id);
-        redirect('/admin/category');
+        redirectBack();
     }
 }

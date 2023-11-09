@@ -9,4 +9,4 @@
 <script src="<?php asset('mail/contact.js');?>"></script>
 
 <!-- Template Javascript -->
-<script src="<?php asset('js/main.js');?>"></script>
+<script src="<?php asset('js/main-fe.js');?>"></script>

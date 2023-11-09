@@ -9,9 +9,9 @@ class Product
     private int $brand_id;
     private string $name;
     private int $highlight;
-    private string $description;
-    private string $information;
-    private string $image;
+    private ?string $description;
+    private ?string $information;
+    private ?string $image;
     private int $type_id;
     private string $type;
     private int $price;

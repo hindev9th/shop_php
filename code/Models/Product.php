@@ -4,7 +4,7 @@ namespace code\Models;
 use config\Config;
 use PDO;
 
-require 'code/Entities/Product.php';
+require_once 'code/Entities/Product.php';
 class Product
 {
     public function index(int $page)
@@ -21,7 +21,7 @@ class Product
                 GROUP BY products.id LIMIT {$start},{$show}";
         $query = $conn->prepare($sql);
         $query->execute();
-        $results = $query->fetchAll(PDO::FETCH_CLASS,"code\Entities\Product");
+        $results = $query->fetchAll(PDO::FETCH_CLASS,\code\Entities\Product::class);
         return $results;
     }
 
@@ -34,13 +34,13 @@ class Product
                 ON products.id = product_types.product_id 
                 LEFT JOIN product_colors 
                 ON products.id = product_colors.product_id 
-                WHERE products.id = '$id' and product_types.id = '$type_id' and product_colors.id = '$color_id'
-                GROUP BY products.id ";
+                WHERE products.id = '$id' and product_types.id = '$type_id' and product_colors.id = '$color_id'";
         $query = $conn->prepare($sql);
         $query->execute();
-        $results = $query->fetchAll(PDO::FETCH_CLASS,"code\Entities\Product");
+        $results = $query->fetchAll(PDO::FETCH_CLASS,\code\Entities\Product::class);
         return $results[0];
     }
+
     public function count()
     {
         $conn = Config::gI()->connect();
